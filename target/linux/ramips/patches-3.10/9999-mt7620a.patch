@@ -1,0 +1,25 @@
+Index: linux-3.10.28/arch/mips/ralink/Kconfig
+===================================================================
+--- linux-3.10.28.orig/arch/mips/ralink/Kconfig	2014-02-13 14:18:21.018788798 +0800
++++ linux-3.10.28/arch/mips/ralink/Kconfig	2014-02-13 14:20:04.406788529 +0800
+@@ -12,6 +12,11 @@
+ 	select CLKSRC_OF
+ 	select CLKSRC_MMIO
+ 
++config RALINK_MT7620
++       bool 
++       default y
++       depends on SOC_MT7620
++
+ choice
+ 	prompt "Ralink SoC selection"
+ 	default SOC_RT305X
+@@ -39,7 +44,7 @@
+ 		select USB_ARCH_HAS_OHCI
+ 		select USB_ARCH_HAS_EHCI
+ 		select HW_HAS_PCI
+-
++		select RALINK_MT7620
+ 	config SOC_MT7621
+ 		bool "MT7621"
+ 		select MIPS_CPU_SCACHE
