@@ -799,7 +799,10 @@ int run_command (const char *cmd, int flag)
 		process_macros (token, finaltoken);
 
 		/* Extract arguments */
-		argc = parse_line (finaltoken, argv);
+		if ((argc = parse_line (finaltoken, argv)) == 0) {
+			rc = -1;	/* no command at all */
+			continue;
+		}
 
 		/* Look up command in command table */
 		if ((cmdtp = find_cmd(argv[0])) == NULL) {

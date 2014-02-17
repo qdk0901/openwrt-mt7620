@@ -667,16 +667,21 @@ Image/Build/Profile/WHR600D=$(call BuildFirmware/CustomFlash/$(1),$(1),whr-600d,
 dlink810l_mtd_size=6881280
 Image/Build/Profile/DIR-810L=$(call BuildFirmware/CustomFlash/$(1),$(1),dir-810l,DIR-810L,$(dlink810l_mtd_size))
 
+define BuildFirmware/XDROF
+	$(call PatchKernelLzmaDtb,$(2),$(3),$(5))
+	dd if=$(KDIR)/vmlinux-$(2).bin.lzma of=$(KDIR)/vmlinux-$(2).bin.lzma.padded bs=1441728 conv=sync
+	mv $(KDIR)/vmlinux-$(2).bin.lzma.padded $(KDIR)/vmlinux-$(2).bin.lzma
+	$(call MkImage,lzma,$(KDIR)/vmlinux-$(2).bin.lzma,$(KDIR)/vmlinux-$(2).uImage,$(5))
+	$(call MkImageSysupgrade/$(1),$(1),$(2),$(4),$(6))
+endef
+
+BuildFirmware/XDR8M/squashfs=$(call BuildFirmware/XDROF,$(1),$(2),$(3),$(ralink_default_fw_size_8M),$(4))
+
+Image/Build/Profile/XDR=$(call BuildFirmware/XDR8M/$(1),$(1),xdr,XDR)
+
 ifeq ($(SUBTARGET),mt7620a)
 define Image/Build/Profile/Default
-	$(call Image/Build/Profile/MT7620a,$(1))
-	$(call Image/Build/Profile/MT7620a_MT7610e,$(1))
-	$(call Image/Build/Profile/MT7620a_MT7530,$(1))
-	$(call Image/Build/Profile/MT7620a_V22SG,$(1))
-	$(call Image/Build/Profile/RP-N53,$(1))
-	$(call Image/Build/Profile/DIR-810L,$(1))
-	$(call Image/Build/Profile/WHR300HP2,$(1))
-	$(call Image/Build/Profile/WHR600D,$(1))
+	$(call Image/Build/Profile/XDR,$(1))
 endef
 endif
 

@@ -28,6 +28,10 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
+#define CONFIG_EXTRA_ENV_SETTINGS	\
+	"lu=tftp 0x80100000 uboot;erase uboot;cp.uboot\0" \
+	"ll=tftp 0x80100000 linux;erase linux;cp.linux\0"
+	
 //#define DEBUG				1
 //#define ET_DEBUG
 #define CONFIG_RT2880_ETH		1	/* Enable built-in 10/100 Ethernet */
@@ -79,8 +83,8 @@
 
 #define CONFIG_BAUDRATE		115200
 
-#define CONFIG_SERVERIP 10.10.10.3
-#define CONFIG_IPADDR 10.10.10.123
+#define CONFIG_SERVERIP 192.168.2.10
+#define CONFIG_IPADDR 192.168.2.1
 #define CONFIG_ETHADDR "00:AA:BB:CC:DD:10"
 /* valid baudrates */
 #define CFG_BAUDRATE_TABLE	{ 9600, 19200, 38400, 57600, 115200 }

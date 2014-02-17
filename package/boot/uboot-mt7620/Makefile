@@ -24,15 +24,11 @@ define uboot/Default
   IMAGE:=
 endef
 
-define uboot/8
-  TITLE:=U-boot for mt7620 (8M)
+define uboot/xdr
+  TITLE:=U-boot for xiaodu router
 endef
 
-define uboot/16
-  TITLE:=U-boot for mt7620 (16M)
-endef
-
-UBOOTS:=8
+UBOOTS:=xdr
 
 define Package/uboot/template
 define Package/uboot-mt7620-$(1)

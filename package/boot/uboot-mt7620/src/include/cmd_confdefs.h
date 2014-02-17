@@ -149,7 +149,7 @@
 /* Default configuration
  */
 #define CONFIG_CMD_DFL	(CFG_CMD_ALL & ~CFG_CMD_NONSTD)
-#define CONFIG_COMMANDS (CONFIG_CMD_DFL)
+#define CONFIG_COMMANDS (CONFIG_CMD_DFL | CFG_CMD_RUN)
 
 /* USB appliance */
 #ifdef RALINK_USB
